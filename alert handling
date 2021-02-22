@@ -1,0 +1,45 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SQLConnector {
+	public static void main(String[] args) throws Exception {
+		Connection conn=null;
+		String url ="jdbc:mysql://localhost:3306/";
+		String database ="EMP";
+		String username ="root";
+		String password="fitatnagar";
+		       try{
+		           Class.forName("com.mysql.jdbc.Driver");
+		           conn = DriverManager.getConnection(url+database,username,password);
+		           String sqlquerry = "select * from Emp_details";
+		           Statement statement =conn.createStatement();
+		           ResultSet result =statement.executeQuery(sqlquerry);
+		       
+		           for(int i=0;i<3;i++){
+		           result.next();
+		           
+		           System.out.println(result.getString("EmpID"));
+		           System.out.println(result.getString("LastName"));
+		           System.out.println(result.getString("FirstName"));
+		           System.out.println(result.getString("Address"));
+		           System.out.println(result.getString("City"));
+		           }
+		           
+		           
+		       }
+		       catch(Exception e){
+		       
+		       }
+		       if(conn!= null){
+		           try {
+		               conn.close();
+		           } catch (SQLException e) {
+		               e.printStackTrace();
+		           }
+		       }
+		       
+		}
+}
